@@ -1,0 +1,13 @@
+<div class="w-full h-full flex-row">
+    <!-- left: textarea and button for json input -->
+    <div class="left">
+        <app-json-input [parser]="parser.parsers()" (submit)="setRelations($event)"></app-json-input>
+    </div>
+    <div>
+        <app-relation-parser #parser></app-relation-parser>
+    </div>
+    <!-- right: d3 graph visualization -->
+    <div class="w-full h-full">
+        <app-d3-graph [relations]="relations()"></app-d3-graph>
+    </div>
+</div>

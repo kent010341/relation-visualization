@@ -1,0 +1,7 @@
+<div class="flex-column">
+    <div class="flex-row">
+        <button (click)="beautifyJson()">Beautify JSON</button>
+        <button (click)="visualize()">Visualize</button>
+    </div>
+    <textarea [value]="jsonInput()" (input)="setInput($event)"></textarea>
+</div>

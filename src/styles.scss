@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+.flex-row {
+    display: flex;
+    flex-direction: row;
+
+    button + button {
+        margin-left: 8px;
+    }
+
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+
+    button + button {
+        margin-top: 8px;
+    }
+
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.h-full {
+    height: 100%;
+}

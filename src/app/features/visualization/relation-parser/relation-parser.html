@@ -1,0 +1,16 @@
+<div class="flex-row">
+    <!-- src -->
+    <div class="flex-column">
+        <app-json-parser label="Source ID" (parser)="setSrcIdParser($event)"></app-json-parser>
+        <app-json-parser label="Source Label" (parser)="setSrcLabelParser($event)"></app-json-parser>
+    </div>
+    <!-- dst -->
+    <div class="flex-column">
+        <app-json-parser label="Destination ID" (parser)="setDstIdParser($event)"></app-json-parser>
+        <app-json-parser label="Destination Label" (parser)="setDstLabelParser($event)"></app-json-parser>
+    </div>
+    <!-- relation label -->
+    <div class="flex-column">
+        <app-json-parser label="Relation Label" (parser)="setRelationLabelParser($event)"></app-json-parser>
+    </div>
+</div>
