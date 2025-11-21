@@ -1,0 +1,9 @@
+<div class="w-full h-full flex-row">
+    <!-- left: textarea and button for json input -->
+    <div class="left h-full card">
+        <app-json-input [parser]="parser.parsers()" (submit)="setRelations($event)"></app-json-input>
+    </div>
+    <div class="right h-full card">
+        <app-relation-parser #parser></app-relation-parser>
+    </div>
+</div>
