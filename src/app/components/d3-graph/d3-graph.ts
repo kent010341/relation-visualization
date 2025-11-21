@@ -25,8 +25,18 @@ export class D3Graph implements OnInit {
 
         const svg = d3.select(host)
             .append('svg')
-            .attr('width', width)
-            .attr('height', height);
+            .attr('width', '100%')
+            .attr('height', '100%');
+
+        const g = svg.append('g');
+
+        svg.call(
+            d3.zoom<SVGSVGElement, unknown>()
+                .scaleExtent([0.1, 4])
+                .on('zoom', (event) => {
+                    g.attr('transform', event.transform);
+                })
+        );
 
         const simulation = d3
             .forceSimulation(relationArray.nodes)
@@ -39,7 +49,7 @@ export class D3Graph implements OnInit {
             .force('charge', d3.forceManyBody().strength(-250))
             .force('center', d3.forceCenter(width / 2, height / 2));
 
-        const link = svg
+        const link = g
             .append('g')
             .attr('stroke', '#999')
             .attr('stroke-opacity', 0.6)
@@ -49,7 +59,7 @@ export class D3Graph implements OnInit {
             .append('line')
             .attr('stroke-width', 1.5);
         
-        const node = svg
+        const node = g
             .append('g')
             .attr('stroke', '#fff')
             .attr('stroke-width', 1.5)
@@ -61,7 +71,7 @@ export class D3Graph implements OnInit {
             .attr('fill', '#4682b4');
 
 
-        const labels = svg
+        const labels = g
             .append('g')
             .selectAll('text')
             .data(relationArray.nodes)
@@ -72,6 +82,24 @@ export class D3Graph implements OnInit {
             .attr('dx', 12)
             .attr('dy', 4);
 
+        // events
+        node.call(
+            d3.drag<SVGCircleElement, NodeDatum>()
+                .on('start', (event, d) => {
+                    if (!event.active) simulation.alphaTarget(0.3).restart();
+                    d.fx = d.x;
+                    d.fy = d.y;
+                })
+                .on('drag', (event, d) => {
+                    d.fx = event.x;
+                    d.fy = event.y;
+                })
+                .on('end', (event, d) => {
+                    if (!event.active) simulation.alphaTarget(0);
+                    d.fx = null;
+                    d.fy = null;
+                })
+        );
 
         simulation.on('tick', () => {
             link

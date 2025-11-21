@@ -33,6 +33,8 @@ export class NodeDatum implements SimulationNodeDatum {
     y?: number;
     vx?: number;
     vy?: number;
+    fx?: number | null;
+    fy?: number | null;
     index?: number;
 
     id: string;
