@@ -58,6 +58,16 @@ export class D3Graph implements OnInit {
             .enter()
             .append('line')
             .attr('stroke-width', 1.5);
+
+        const linkLabels = g.append('g')
+        .selectAll('text')
+        .data(relationArray.links)
+        .enter()
+        .append('text')
+        .attr('font-size', 12)
+        .attr('text-anchor', 'middle')
+        .attr('dy', -4) // 線上方微調，可自行調整
+        .text(d => d.label);
         
         const node = g
             .append('g')
@@ -110,6 +120,9 @@ export class D3Graph implements OnInit {
 
             node.attr('cx', d => d.x!).attr('cy', d => d.y!);
             labels.attr('x', d => d.x!).attr('y', d => d.y!);
+            linkLabels
+                .attr('x', d => ((d.source as NodeDatum).x! + (d.target as NodeDatum).x!) / 2)
+                .attr('y', d => ((d.source as NodeDatum).y! + (d.target as NodeDatum).y!) / 2);
         });
     }
 

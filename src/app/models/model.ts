@@ -4,14 +4,14 @@ export class LinkArray {
 
     private readonly nodeMap: Map<string, NodeDatum>;
     readonly nodes: NodeDatum[];
-    readonly links: SimulationLinkDatum<NodeDatum>[];
+    readonly links: LinkDatum<NodeDatum>[];
 
     constructor(relations: RawRelation[]) {
         this.nodeMap = new Map<string, NodeDatum>();
         this.links = relations.map(relation => {
             const srcNode = this.getOrCreateNode(relation.src);
             const dstNode = this.getOrCreateNode(relation.dst);
-            return new LinkDatum<NodeDatum>(srcNode, dstNode);
+            return new LinkDatum<NodeDatum>(srcNode, dstNode, relation.relation);
         });
         this.nodes = Array.from(this.nodeMap.values());
     }
@@ -51,10 +51,12 @@ export class LinkDatum<T extends SimulationNodeDatum> implements SimulationLinkD
     source: T | string | number;
     target: T | string | number;
     index?: number | undefined;
+    label: string;
 
-    constructor(source: T | string | number, target: T | string | number) {
+    constructor(source: T | string | number, target: T | string | number, label: string) {
         this.source = source;
         this.target = target;
+        this.label = label;
     }
 }
 
